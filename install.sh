@@ -5,25 +5,24 @@ cp_hist_flag=false
 noninteractive_flag=false
 
 # Loop through all arguments
-for arg in "$@"
-do
+for arg in "$@"; do
     case $arg in
-        --cp-hist|-c)
-            cp_hist_flag=true
-            ;;
-        --non-interactive|-n)
-            noninteractive_flag=true
-            ;;
-        *)
-            # Handle any other arguments or provide an error message
-            ;;
+    --cp-hist | -c)
+        cp_hist_flag=true
+        ;;
+    --non-interactive | -n)
+        noninteractive_flag=true
+        ;;
+    *)
+        # Handle any other arguments or provide an error message
+        ;;
     esac
 done
 
-if command -v zsh &> /dev/null && command -v git &> /dev/null && command -v wget &> /dev/null; then
+if command -v zsh &>/dev/null && command -v git &>/dev/null && command -v wget &>/dev/null; then
     echo -e "ZSH and Git are already installed\n"
 else
-    if sudo apt install -y zsh git wget autoconf || sudo pacman -S zsh git wget || sudo dnf install -y zsh git wget || sudo yum install -y zsh git wget || sudo brew install git zsh wget || pkg install git zsh wget ; then
+    if sudo apt install -y zsh git wget autoconf || sudo pacman -S zsh git wget || sudo dnf install -y zsh git wget || sudo yum install -y zsh git wget || sudo brew install git zsh wget || pkg install git zsh wget; then
         echo -e "zsh wget and git Installed\n"
     else
         echo -e "Please install the following packages first, then try again: zsh git wget \n" && exit
@@ -58,9 +57,9 @@ fi
 cp -f .zshrc ~/
 cp -f ezshrc.zsh ~/.config/ezsh/
 
-mkdir -p ~/.config/ezsh/zshrc         # PLACE YOUR ZSHRC CONFIGURATIONS OVER THERE
-mkdir -p ~/.cache/zsh/                # this will be used to store .zcompdump zsh completion cache files which normally clutter $HOME
-mkdir -p ~/.fonts                     # Create .fonts if doesn't exist
+mkdir -p ~/.config/ezsh/zshrc # PLACE YOUR ZSHRC CONFIGURATIONS OVER THERE
+mkdir -p ~/.cache/zsh/        # this will be used to store .zcompdump zsh completion cache files which normally clutter $HOME
+mkdir -p ~/.fonts             # Create .fonts if doesn't exist
 
 if [ -f ~/.zcompdump ]; then
     mv ~/.zcompdump* ~/.cache/zsh/
@@ -90,6 +89,19 @@ else
     git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search ~/.config/ezsh/oh-my-zsh/custom/plugins/zsh-history-substring-search
 fi
 
+# https://github.com/MichaelAquilina/zsh-you-should-use?tab=readme-ov-file#installation
+if [ -d ~/.config/ezsh/oh-my-zsh/custom/plugins/zsh-you-should-use ]; then
+    cd ~/.config/ezsh/oh-my-zsh/custom/plugins/zsh-you-should-use && git pull
+else
+    git clone --depth=1 https://github.com/MichaelAquilina/zsh-you-should-use ~/.config/ezsh/oh-my-zsh/custom/plugins/zsh-you-should-use
+fi
+
+# https://github.com/brymck/print-alias
+if [ -d ~/.config/ezsh/oh-my-zsh/custom/plugins/print-alias ]; then
+    cd ~/.config/ezsh/oh-my-zsh/custom/plugins/print-alias && git pull
+else
+    git clone --depth=1 https://github.com/brymck/print-alias ~/.config/ezsh/oh-my-zsh/custom/plugins/print-alias
+fi
 
 # INSTALL FONTS
 
@@ -152,8 +164,8 @@ if [ ! -L ~/.config/ezsh/todo/bin/todo.sh ]; then
     mkdir -p ~/.config/ezsh/todo
     wget -q --show-progress "https://github.com/todotxt/todo.txt-cli/releases/download/v2.12.0/todo.txt_cli-2.12.0.tar.gz" -P ~/.config/ezsh/
     tar xvf ~/.config/ezsh/todo.txt_cli-2.12.0.tar.gz -C ~/.config/ezsh/todo --strip 1 && rm ~/.config/ezsh/todo.txt_cli-2.12.0.tar.gz
-    ln -s -f ~/.config/ezsh/todo/todo.sh ~/.config/ezsh/bin/todo.sh     # so only .../bin is included in $PATH
-    ln -s -f ~/.config/ezsh/todo/todo.cfg ~/.todo.cfg     # it expects it there or ~/todo.cfg or ~/.todo/config
+    ln -s -f ~/.config/ezsh/todo/todo.sh ~/.config/ezsh/bin/todo.sh # so only .../bin is included in $PATH
+    ln -s -f ~/.config/ezsh/todo/todo.cfg ~/.todo.cfg               # it expects it there or ~/todo.cfg or ~/.todo/config
 else
     echo -e "todo.sh is already instlled in ~/.config/ezsh/todo/bin/\n"
 fi
@@ -161,11 +173,11 @@ if [ "$cp_hist_flag" = true ]; then
     echo -e "\nCopying bash_history to zsh_history\n"
     if command -v python &>/dev/null; then
         wget -q --show-progress https://gist.githubusercontent.com/muendelezaji/c14722ab66b505a49861b8a74e52b274/raw/49f0fb7f661bdf794742257f58950d209dd6cb62/bash-to-zsh-hist.py
-        cat ~/.bash_history | python bash-to-zsh-hist.py >> ~/.zsh_history
+        cat ~/.bash_history | python bash-to-zsh-hist.py >>~/.zsh_history
     else
         if command -v python3 &>/dev/null; then
             wget -q --show-progress https://gist.githubusercontent.com/muendelezaji/c14722ab66b505a49861b8a74e52b274/raw/49f0fb7f661bdf794742257f58950d209dd6cb62/bash-to-zsh-hist.py
-            cat ~/.bash_history | python3 bash-to-zsh-hist.py >> ~/.zsh_history
+            cat ~/.bash_history | python3 bash-to-zsh-hist.py >>~/.zsh_history
         else
             echo "Python is not installed, can't copy bash_history to zsh_history\n"
         fi

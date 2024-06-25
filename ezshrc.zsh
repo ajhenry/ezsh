@@ -9,10 +9,9 @@ export ZSH=$HOME/.config/ezsh/oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-
 POWERLEVEL9K_MODE='nerdfont-complete'
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="candy"
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
@@ -30,7 +29,6 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(ssh os_icon context dir vcs)
 
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -39,10 +37,10 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -51,10 +49,10 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -75,29 +73,14 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     zsh-completions
-    # zsh-autosuggestions     # disable when using marker, otherwise enable
+    zsh-autosuggestions # disable when using marker, otherwise enable
     zsh-syntax-highlighting
     history-substring-search
-    screen
-    systemd
-    web-search
-    k
+    gh
     extract
-    z
-    sudo
-    # httpie
-    # git
-    # python
-    # docker
-    # lol
-    # pip
-    # pyenv
-    # redis-cli
-    # zsh-wakatime          # enable if you use wakatime with 'https://github.com/wbingli/zsh-wakatime'
-    )
-#plugins+=(zsh-nvm)
+)
 
-# source $ZSH/oh-my-zsh.sh          # This is now run in .zshrc after importing user configs from ~/.config/ezsh/zshrc/* files 
+# source $ZSH/oh-my-zsh.sh          # This is now run in .zshrc after importing user configs from ~/.config/ezsh/zshrc/* files
 
 # User configuration
 
@@ -136,22 +119,20 @@ export PATH=$PATH:~/.config/ezsh/bin
 NPM_PACKAGES="${HOME}/.npm"
 PATH="$NPM_PACKAGES/bin:$PATH"
 
-[[ -s "$HOME/.config/ezsh/marker/marker.sh" ]] && source "$HOME/.config/ezsh/marker/marker.sh"
+# [[ -s "$HOME/.config/ezsh/marker/marker.sh" ]] && source "$HOME/.config/ezsh/marker/marker.sh"
 
-autoload -U compinit && compinit -C -d ~/.cache/zsh/.zcompdump        # zsh-completions
+autoload -U compinit && compinit -C -d ~/.cache/zsh/.zcompdump # zsh-completions
 # autoload bashcompinit                 # bash completions
 # bashcompinit
 
-
 # QuickZsh
-SAVEHIST=50000      #save upto 50,000 lines in history. oh-my-zsh default is 10,000
+SAVEHIST=50000 #save upto 50,000 lines in history. oh-my-zsh default is 10,000
 #setopt hist_ignore_all_dups     # dont record duplicated entries in history during a single session
 
-alias myip="wget -qO- https://wtfismyip.com/text"	# quickly show external ip address
-alias l="ls --hyperlink=auto -lAhrtF"    # show all except . .. , sort by recent, / at the end of folders, clickable
+alias myip="wget -qO- https://wtfismyip.com/text" # quickly show external ip address
+alias l="ls --hyperlink=auto -lAhrtF"             # show all except . .. , sort by recent, / at the end of folders, clickable
 alias e="exit"
 alias ip="ip --color=auto"
-
 
 # CUSTOM FUNCTIONS
 
@@ -166,7 +147,6 @@ cheat() {
         curl "https://cheat.sh/$1"
     fi
 }
-
 
 # Matrix screen saver! will run if you have installed "cmatrix"
 # TMOUT=900
@@ -200,4 +180,3 @@ ipgeo() {
         curl "http://api.db-ip.com/v2/free/$(myip)"
     fi
 }
-
