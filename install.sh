@@ -113,6 +113,11 @@ wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/pa
 
 fc-cache -fv ~/.fonts
 
+# INSTALL FNM
+
+curl -fsSL https://fnm.vercel.app/install | bash
+fnm install --lts
+
 if [ -d ~/.config/ezsh/oh-my-zsh/custom/themes/powerlevel10k ]; then
     cd ~/.config/ezsh/oh-my-zsh/custom/themes/powerlevel10k && git pull
 else
