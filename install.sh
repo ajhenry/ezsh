@@ -130,7 +130,7 @@ else
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.config/ezsh/oh-my-zsh/custom/themes/powerlevel10k
 fi
 
-if [ -d ~/.~/.config/ezsh/fzf ]; then
+if [ -d ~/.config/ezsh/fzf ]; then
     cd ~/.config/ezsh/fzf && git pull
     ~/.config/ezsh/fzf/install --all --key-bindings --completion --no-update-rc
 else
