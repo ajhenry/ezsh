@@ -29,13 +29,19 @@ else
     fi
 fi
 
-if mv -n ~/.zshrc ~/.zshrc-backup-$(date +"%Y-%m-%d"); then # backup .zshrc
+if mv -n ~/.zshrc "$HOME/.zshrc-backup-$(date +"%Y-%m-%d")"; then # backup .zshrc
     echo -e "Backed up the current .zshrc to .zshrc-backup-date\n"
 fi
 
 echo -e "The setup will be installed in '~/.config/ezsh'\n"
 echo -e "Place your personal zshrc config files under '~/.config/ezsh/zshrc/'\n"
 mkdir -p ~/.config/ezsh/zshrc
+
+# Places the files found in config into ~/.config/ezsh/zshrc/
+cp -r config/* "$HOME/.config/ezsh/zshrc/"
+
+echo -e "Added the following config files:"
+ls ~/.config/ezsh/zshrc
 
 if [ -d ~/.quickzsh ]; then
     echo -e "\n PREVIOUS SETUP FOUND AT '~/.quickzsh'. PLEASE MANUALLY MOVE ANY FILES YOU'D LIKE TO '~/.config/ezsh' \n"
@@ -196,15 +202,18 @@ if [ "$noninteractive_flag" = true ]; then
     echo -e "Make sure to change zsh to default shell by running: chsh -s $(which zsh)"
     echo -e "In a new zsh session manually run: build-fzf-tab-module"
 else
-    # source ~/.zshrc
-    echo -e "\nSudo access is needed to change default shell\n"
-
-    if chsh -s $(which zsh) && /bin/zsh -i -c 'omz update'; then
-        echo -e "Installation complete, exit terminal and enter a new zsh session"
-        echo -e "In a new zsh session manually run: build-fzf-tab-module"
+    # check if zsh is already the default shell
+    if [ "$SHELL" = "$(which zsh)" ]; then
+        echo -e "Zsh is already the default shell\n"
     else
-        echo -e "Something is wrong"
-
+        echo -e "\nSudo access is needed to change default shell\n"
+        if chsh -s "$(which zsh)" && /bin/zsh -i -c 'omz update'; then
+            echo -e "Installation complete, exit terminal and enter a new zsh session"
+            echo -e "In a new zsh session manually run: build-fzf-tab-module"
+        else
+            echo -e "An error occurred changing shell"
+        fi
     fi
 fi
+
 exit

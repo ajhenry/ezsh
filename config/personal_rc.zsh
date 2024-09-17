@@ -12,6 +12,7 @@ plugins+=(
     git
     python
     colorize
+    fzf
 )
 
 # Alias python3 to python
@@ -26,7 +27,7 @@ export PRINT_ALIAS_IGNORE_REDEFINED_COMMANDS=true
 export PRINT_ALIAS_IGNORE_ALIASES=(example_alias)
 
 # macos removed ruby, add it back with rbenv
-export PATH="~/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:$PATH"
 
 # add vscode to path
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -58,6 +59,7 @@ export PATH=$(pyenv root)/shims:$PATH
 
 # add root tools to path
 export PATH=/usr/sbin:$PATH
+export PATH=/usr/local/bin:$PATH
 
 # add brew to path
 export PATH=/opt/homebrew/bin:$PATH
@@ -73,6 +75,15 @@ if [ ! -d "$HOME/dev" ]; then
 fi
 if [ ! -d "$HOME/dev/go" ]; then
     mkdir -p $HOME/dev/go
+fi
+
+# ripgrep setup
+if ! type "rg" >/dev/null; then
+    if type "brew" >/dev/null; then
+        brew install ripgrep
+    else
+        echo "brew not found. Please install it using brew"
+    fi
 fi
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
