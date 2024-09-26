@@ -98,3 +98,6 @@ export LANG='en_US.UTF-8'
 # Change default editor to vscode
 export EDITOR="code --wait"
 export VISUAL="$EDITOR"
+
+# Chrome debugger
+alias debug_chrome='open -a "Google Chrome" --args --remote-debugging-port=9222'
