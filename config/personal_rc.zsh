@@ -61,6 +61,9 @@ export PATH=$(pyenv root)/shims:$PATH
 export PATH=/usr/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
+# add docker to path
+export PATH="$HOME/.docker/bin:$PATH"
+
 # add brew to path
 export PATH=/opt/homebrew/bin:$PATH
 
