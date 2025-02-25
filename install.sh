@@ -29,6 +29,13 @@ else
     fi
 fi
 
+# Check if brew is installed
+if command -v brew &>/dev/null; then
+    echo -e "Brew is already installed\n"
+else
+    echo -e "Please install brew first, then try again\n" && exit
+fi
+
 if mv -n ~/.zshrc "$HOME/.zshrc-backup-$(date +"%Y-%m-%d")"; then # backup .zshrc
     echo -e "Backed up the current .zshrc to .zshrc-backup-date\n"
 fi
@@ -39,6 +46,9 @@ mkdir -p ~/.config/ezsh/zshrc
 
 # Places the files found in config into ~/.config/ezsh/zshrc/
 cp -r config/* "$HOME/.config/ezsh/zshrc/"
+
+# Copy over the p10k.zsh file from the ezsh folder to the config folder
+cp -r p10k.zsh "$HOME/.config/ezsh/"
 
 echo -e "Added the following config files:"
 ls ~/.config/ezsh/zshrc
@@ -111,16 +121,45 @@ fi
 
 # INSTALL FONTS
 
-echo -e "Installing Nerd Fonts version of Hack, Roboto Mono, DejaVu Sans Mono\n"
+echo -e "Installing Nerd Fonts version of Hack, Roboto Mono, DejaVu Sans Mono, FiraCode\n"
 
-wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf -P ~/.fonts/
-wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/RobotoMonoNerdFont-Regular.ttf -P ~/.fonts/
-wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/DejaVuSansMNerdFont-Regular.ttf -P ~/.fonts/
+# Check if they are already installed
+if fc-list | grep -q "Hack Nerd Font"; then
+    echo -e "Hack Nerd Font is already installed\n"
+else
+    wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf -P ~/.fonts/
+    echo -e "Hack Nerd Font installed\n"
+fi
+
+if fc-list | grep -q "RobotoMono Nerd Font"; then
+    echo -e "Roboto Mono Nerd Font is already installed\n"
+else
+    wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/RobotoMonoNerdFont-Regular.ttf -P ~/.fonts/
+    echo -e "Roboto Mono Nerd Font installed\n"
+fi
+
+if fc-list | grep -q "DejaVuSansM Nerd Font"; then
+    echo -e "DejaVu Sans Mono Nerd Font is already installed\n"
+else
+    wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/DejaVuSansMNerdFont-Regular.ttf -P ~/.fonts/
+    echo -e "DejaVu Sans Mono Nerd Font installed\n"
+fi
+
+# install firacode font
+if fc-list | grep -q "Fira Code"; then
+    echo -e "Fira Code is already installed\n"
+else
+    wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFont-Regular.ttf -P ~/.fonts/
+    echo -e "Fira Code Nerd Font installed\n"
+fi
+
+# Install entire font-hack-nerd-font family from brew
+echo -e "Installing entire font-hack-nerd-font family from brew\n"
+brew install font-hack-nerd-font
 
 fc-cache -fv ~/.fonts
 
 # INSTALL FNM
-
 curl -fsSL https://fnm.vercel.app/install | bash
 fnm install --lts
 
