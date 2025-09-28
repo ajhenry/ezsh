@@ -29,8 +29,12 @@ export PRINT_ALIAS_IGNORE_ALIASES=(example_alias)
 # macos removed ruby, add it back with rbenv
 export PATH="$HOME/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:$PATH"
 
-# add vscode to path
+# add cursor to path
+export PATH="$PATH:/Applications/Cursor.app/Contents/Resources/app/bin"
+# add code to path
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+alias xcode="open -a Xcode"
+alias code="open -a Cursor"
 
 # setup fnm
 eval "$(fnm env --use-on-cd)"
