@@ -1,77 +1,118 @@
 # ezsh
-A simple script to setup an awesome shell environment.
-Quickly install and setup zsh and oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh) with
-* powerlevel10k theme (https://github.com/romkatv/powerlevel10k)
-* Nerd-Fonts (https://github.com/ryanoasis/nerd-fonts)
-* zsh-completions (https://github.com/zsh-users/zsh-completions)
-* zsh-autosuggestions (https://github.com/zsh-users/zsh-autosuggestions)
-* zsh-syntax-highlighting (https://github.com/zsh-users/zsh-syntax-highlighting)
-* history-substring-search (https://github.com/zsh-users/zsh-history-substring-search)
-* fzf (https://github.com/junegunn/fzf)
-* k (https://github.com/supercrabtree/k)
-* marker (https://github.com/pindexis/marker)
-* todotxt (https://github.com/todotxt/todo.txt-cli)
 
-Sets following useful aliases and ohmyzsh plugins. **You can add more or overwrite these in your personal zsh config files under `~/.config/ezsh/zshrc/`** 
-* l="ls -lah"         - just type "l" instead of "ls -lah"
-* alias k="k -h"	  - show human readable filesizes, in kb, mb etc
-* e="exit"
-* [x="extract"](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/extract)         - extract any compressed files
-* [z](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z)   - quickly jump to most visited directories
-* [web-search](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/web-search)    - search on the web from cli
-* [sudo](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/sudo)                - easily prefix your commands with sudo by pressing `esc` twice
-* [systemd](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/systemd)          - many useful aliases for systemd
-* https               - make httpie use https
-* myip - (wget -qO- https://wtfismyip.com/text)       - what's my ip: quickly find out external IP
-* cheat - (https://github.com/chubin/cheat.sh)        - cheatsheets in the terminal!
-* speedtest - (curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -) run speedtest on the fly
-* dadjoke - (curl https://icanhazdadjoke.com)         - terminally sick jokes
-* dict - (curl "dict://dict.org/d:$1 $2 $3")          - dictionary definitions
-* ipgeo - (curl "http://api.db-ip.com/v2/free/$1")    - finds geo location from IP
-* corona - (curl "https://corona-stats.online/")      - shows corona virus spread live stats
+A simple script to set up an opinionated, batteries-included zsh environment on macOS (and Linux). It installs zsh, oh-my-zsh, a bunch of useful plugins, Nerd Fonts, fzf, pyenv, fnm, and more — all under `~/.config/ezsh/` so your `$HOME` stays clean.
 
-## Demo
+## What it installs
 
-Command prompt looks like this (easily customize it by placing your configs in ~/.config/ezsh/zshrc/)
-![prompt](https://user-images.githubusercontent.com/8462091/43674765-8bb13a76-9817-11e8-8b7b-16b8b1998408.png)
-user :  directory  :  git stats : last command exit code                     free memory: load : time
+### Shell + framework
+* [zsh](https://www.zsh.org/), `git`, and `wget` (via your system package manager: `apt`/`pacman`/`dnf`/`yum`/`brew`/`pkg`)
+* [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) — cloned to `~/.config/ezsh/oh-my-zsh`, configured to use the built-in `candy` theme
 
-Watch this to get an idea of what your Shell (well, life!) could be like!!
+### oh-my-zsh plugins (auto-cloned)
+* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+* [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+* [zsh-completions](https://github.com/zsh-users/zsh-completions)
+* [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)
+* [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use)
+* [print-alias](https://github.com/brymck/print-alias)
+* [k](https://github.com/supercrabtree/k) — better `ls`
+* [fzf-tab](https://github.com/Aloxaf/fzf-tab) — fzf-powered tab completion
 
-[![asciicast](https://asciinema.org/a/225226.svg)](https://asciinema.org/a/225226)
+### Plus the built-in oh-my-zsh plugins enabled by default
+`gh`, `extract`, `docker`, `docker-compose`, `pyenv`, `pip`, `git`, `python`, `colorize`, `fzf`
 
+### Tools
+* [fzf](https://github.com/junegunn/fzf) — cloned to `~/.config/ezsh/fzf`, with key bindings and completion installed
+* [marker](https://github.com/jotyGill/marker) — bookmarked shell commands
+* [pyenv](https://github.com/pyenv/pyenv) — installed via `brew` if available, otherwise via `pyenv.run`
+* [fnm](https://github.com/Schniz/fnm) — fast Node version manager, plus the latest LTS Node
+* [gvm](https://github.com/soulteary/gvm) — Go version manager (installed lazily on first shell start, from `personal_rc.zsh`)
+* [ripgrep](https://github.com/BurntSushi/ripgrep) (`rg`) — installed lazily via brew on first shell start
+* [goto](https://github.com/ajhenry/goto) — directory bookmarks (installed lazily via `npm` on first shell start)
+
+### Fonts
+Downloaded into `~/.fonts/` and registered via `fc-cache`:
+* Hack Nerd Font
+* RobotoMono Nerd Font
+* DejaVuSansMono Nerd Font
+* FiraCode Nerd Font
+* The full `font-hack-nerd-font` cask via brew
+
+## Aliases & helpers shipped in `ezshrc.zsh` / `personal_rc.zsh`
+
+You can add or override these in your own files under `~/.config/ezsh/zshrc/`.
+
+* `l` — `ls --hyperlink=auto -lAhrtF` (all files, sorted by recent, clickable)
+* `e` — `exit`
+* `ip` — `ip --color=auto`
+* `myip` — print your external IP (`wget -qO- https://wtfismyip.com/text`)
+* `python` — aliased to `python3`
+* `nvm` — aliased to `fnm`
+* `code` — `open -a Cursor`
+* `xcode` — `open -a Xcode`
+* `finder` — `open`
+* `debug_chrome` — launch Chrome with remote debugging on port 9222
+* `video_to_gif <file>` — convert a video to an optimized gif via `ffmpeg` + `gifsicle`
+* `cheat <cmd> [query…]` — query [cheat.sh](https://github.com/chubin/cheat.sh)
+* `speedtest` — run [speedtest-cli](https://github.com/sivel/speedtest-cli) on the fly
+* `dadjoke` — fetch a joke from icanhazdadjoke.com
+* `dict <word>` — dictionary lookup via `dict.org`
+* `ipgeo [ip]` — geo info for an IP (yours by default)
+* Plus oh-my-zsh built-ins like [`extract`](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/extract) (`x <archive>`)
+
+The default editor is set to `code --wait` (works with Cursor since `code` is aliased to it).
+
+## Layout
+
+Everything lives under `~/.config/ezsh/`:
+
+```
+~/.config/ezsh/
+├── oh-my-zsh/          # oh-my-zsh framework + plugins + themes
+├── fzf/                # fzf checkout
+├── marker/             # marker checkout
+├── zshrc/              # YOUR personal *.zsh files (sourced automatically)
+└── ezshrc.zsh          # main config sourced by ~/.zshrc
+```
+
+Your real `~/.zshrc` is tiny — it just sources `~/.config/ezsh/ezshrc.zsh` and any files you drop in `~/.config/ezsh/zshrc/`.
 
 ## Installation
-Requirements:
-* `git` to clone it.
-* `python3` or `python` is required to run option '-c' which copies history from .bash_history
 
-``` bash
+Requirements:
+* `git` to clone this repo
+* [Homebrew](https://brew.sh/) (the script exits if `brew` isn't found)
+* `python3` or `python` if you want to use `-c` to import bash history
+
+```bash
 git clone https://github.com/jotyGill/ezsh
 cd ezsh
-./install.sh -c        # only run with '-c' the first time, running multiple times will duplicate history entries
+./install.sh -c        # only pass -c the first time; re-running with -c duplicates history entries
 ```
-This will install the setup under `~/.config/ezsh/`
-Change your terminal's fonts to either "RobotoMono Nerd Font" or "Hack Nerd Font" or "DejaVu Sans Mono Nerd Fonts".
-You can also manually install Nerd Fonts of your choice.
+
+Flags:
+* `-c`, `--cp-hist` — copy `~/.bash_history` into `~/.zsh_history`
+* `-n`, `--non-interactive` — skip the `chsh` prompt at the end (useful in CI / Dockerfiles)
+
+After installation, change your terminal font to one of the installed Nerd Fonts (RobotoMono, Hack, DejaVuSansM, or FiraCode), then open a new zsh session. In that new session, run `build-fzf-tab-module` once to build the fzf-tab module.
 
 ## Notes
-* Make sure to use any terminal besides QTerminal (default one in kali-xfce), here back space doesn't work for some reason (alt+back does). I recommend xfce4-terminal for Kali
 
-* If you are already using zsh, your zsh config will be backed up to .zshrc-backup-date
+* If you already had a `~/.zshrc`, it's backed up to `~/.zshrc-backup-<date>` before being overwritten.
+* If text/icons look broken, your terminal isn't using a Nerd Font yet. See [powerline/fonts#185](https://github.com/powerline/fonts/issues/185).
+* marker's default `Ctrl+t` clashed with fzf, so it's rebound to `Ctrl+b`.
+* All oh-my-zsh plugins are installed under `~/.config/ezsh/oh-my-zsh/`. Other tools (fzf, marker) live in `~/.config/ezsh/`.
+* `zsh-autosuggestions` may conflict with marker. If you don't use marker, enable it with `plugins+=(zsh-autosuggestions)` in a file under `~/.config/ezsh/zshrc/`.
+* Customize the prompt by setting a different `ZSH_THEME` (or your own `PROMPT`) in a file under `~/.config/ezsh/zshrc/`. See `config/personal_rc.zsh` for an example of overrides.
 
-* If the text/icons look broken, make sure your terminal is using one of the Nerd fonts. [discussion](https://github.com/powerline/fonts/issues/185). I recommend "RobotoMono Nerd Font"
+Suggestions for more cool tools are always welcome!
 
-* marker's shortcut "Ctr+t" clashed with fzf so I rebound it to "Ctr +b"
+## Uninstall
 
-* All oh-my-zsh plugins are installed under ~/.config/ezsh/oh-my-zsh/plugin, Other tools (fzf,marker,todo) are installed in ~/.config/ezsh/
+Delete `~/.zshrc` and `~/.config/ezsh/`, then restore your backup:
 
-* zsh-autosuggestions is not currently enabled due to a conflict with Marker. If you don't use Marker, enable it by adding `plugins+=(zsh-autosuggestions)` into your personal config file
-
-* The look of the shell can be very easily customised[https://github.com/bhilburn/powerlevel9k#prompt-customization] by overwriting POWERLEVEL10K settings
-in your personal config file under ~/.config/ezsh/zshrc/ . See example setup under example/personal_rc.zsh
-
-Suggestions about more cool tools are always welcome :)
-
-### To Uninstall
-To uninstall simply delete ~/.zshrc and ~/.config/ezsh/. The script creates a backup of your original .zshrc in the home folder with the filename indicating it's a backup. Rename it back to .zshrc
+```bash
+rm -rf ~/.config/ezsh ~/.zshrc
+mv ~/.zshrc-backup-<date> ~/.zshrc   # if you had one
+chsh -s "$(command -v bash)"         # or whichever shell you want back
+```

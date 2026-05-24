@@ -9,8 +9,6 @@ export ZSH=$HOME/.config/ezsh/oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-# I have everything setup for p10k, but I like candy more
-# ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_THEME="candy"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -102,6 +100,10 @@ export PATH=$PATH:~/.config/ezsh/bin
 
 NPM_PACKAGES="${HOME}/.npm"
 PATH="$NPM_PACKAGES/bin:$PATH"
+
+# Tell oh-my-zsh's fzf plugin where fzf is installed (managed by ezsh install.sh)
+export FZF_BASE="$HOME/.config/ezsh/fzf"
+export PATH="$FZF_BASE/bin:$PATH"
 
 # [[ -s "$HOME/.config/ezsh/marker/marker.sh" ]] && source "$HOME/.config/ezsh/marker/marker.sh"
 
