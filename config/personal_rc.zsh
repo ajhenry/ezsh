@@ -34,7 +34,8 @@ export PATH="$PATH:/Applications/Cursor.app/Contents/Resources/app/bin"
 # add code to path
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 alias xcode="open -a Xcode"
-alias code="open -a Cursor"
+# alias code to the cursor CLI so both `cursor` and `code` open files/folders in Cursor
+alias code="cursor"
 
 # setup fnm
 eval "$(fnm env --use-on-cd)"

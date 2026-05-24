@@ -174,6 +174,36 @@ else
     fi
 fi
 
+# INSTALL CURSOR
+if command -v cursor &>/dev/null || [ -d "/Applications/Cursor.app" ]; then
+    echo -e "Cursor is already installed\n"
+else
+    echo -e "Installing Cursor\n"
+    if command -v brew &>/dev/null; then
+        brew install --cask cursor
+    else
+        echo -e "Could not install Cursor automatically. See https://cursor.com/downloads\n"
+    fi
+fi
+
+# INSTALL GH CLI
+if command -v gh &>/dev/null; then
+    echo -e "gh CLI is already installed\n"
+else
+    echo -e "Installing gh CLI\n"
+    if command -v brew &>/dev/null; then
+        brew install gh
+    elif command -v apt &>/dev/null; then
+        sudo apt install -y gh
+    elif command -v dnf &>/dev/null; then
+        sudo dnf install -y gh
+    elif command -v pacman &>/dev/null; then
+        sudo pacman -S --noconfirm github-cli
+    else
+        echo -e "Could not install gh CLI automatically. See https://github.com/cli/cli#installation\n"
+    fi
+fi
+
 if [ -d ~/.config/ezsh/fzf ]; then
     cd ~/.config/ezsh/fzf && git pull
     ~/.config/ezsh/fzf/install --all --key-bindings --completion --no-update-rc

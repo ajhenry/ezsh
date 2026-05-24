@@ -25,6 +25,7 @@ A simple script to set up an opinionated, batteries-included zsh environment on 
 * [fzf](https://github.com/junegunn/fzf) — cloned to `~/.config/ezsh/fzf`, with key bindings and completion installed
 * [marker](https://github.com/jotyGill/marker) — bookmarked shell commands
 * [pyenv](https://github.com/pyenv/pyenv) — installed via `brew` if available, otherwise via `pyenv.run`
+* [gh](https://github.com/cli/cli) — GitHub CLI (installed via `brew`/`apt`/`dnf`/`pacman`)
 * [fnm](https://github.com/Schniz/fnm) — fast Node version manager, plus the latest LTS Node
 * [gvm](https://github.com/soulteary/gvm) — Go version manager (installed lazily on first shell start, from `personal_rc.zsh`)
 * [ripgrep](https://github.com/BurntSushi/ripgrep) (`rg`) — installed lazily via brew on first shell start
